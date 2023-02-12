@@ -59,6 +59,8 @@ push --endpoint YOUR_DO_SPACE_ENDPOINT --bucket YOUR_DO_BUCKET_NAME --name YOUR_
 history -d $(history 1)
 ```
 
+Running the push command will return you a timestamped archive name with the tar extension (ex: `YOUR_DESIRED_BACKUP_NAME-1676215362990.tar`), keep this archive name for the next time you wish to pull or recover this image.
+
 **pull example**:
 ```bash
 docker run \
@@ -69,6 +71,7 @@ ghcr.io/sudomaxime/do-volume-backup:latest \
 push --endpoint YOUR_DO_SPACE_ENDPOINT --bucket YOUR_DO_BUCKET_NAME --name YOUR_DESIRED_BACKUP_NAME; \
 history -d $(history 1)
 ```
+the `--name` of your backup will be the timestamped archive name you recieved from the terminal in the previous step (ex: `YOUR_DESIRED_BACKUP_NAME-1676215362990.tar`).
 
 *Note: we use `history -d $(history 1)` to prevent leaking secrets in server history logs, this is considered a good practice.*
 
