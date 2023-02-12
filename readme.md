@@ -22,6 +22,9 @@ if you wish to do that please read the warning section before using in productio
 * Can be integrated easily in a CI/CD pipeline or an automatic backup script
 * Doesn't leak api keys or secrets in server history (see examples)
 
+## System requirements
+The only requirement to run this terminal tool is having [docker installed on your machine](https://www.docker.com/).
+
 ## Warning before using
 **ALWAYS TESTS BACKUPS IN DEVELOPMENT BEFORE RELYING ON THIS TOOL IN PRODUCTION !**
 
@@ -37,15 +40,6 @@ To use this in production in a safe way, here are three solutions:
 3. If you wish to save disk space, you can rsync your volume to a different server using SSH and execute the backup from that remote machine.
 
 In production we strongly reccomend adding `history -d $(history 1)` to remove all traces of your digital ocean secret keys in the server history file.
-
-## System requirements
-The only requirement to run this terminal tool is having [docker installed on your machine](https://www.docker.com/).
-
-## Environment variables and secrets
-These variables can be used in development:
-* `NODE_ENV=development` - Either `development` or `production`.
-* `DO_SPACE_KEY=<your_bucket_key>` - Your private space key, starting with 'DO' followed by 18 alphanumeric characters
-* `DO_SPACE_SECRET=<your_bucket_secret>` - Your digital ocean secert key
 
 ## Required params
 Running the `pull` or `push` will require three parameters, these are used by the program to know where files should be saved.
@@ -90,3 +84,9 @@ By default these two folders are placed in the root directory of the project:
 We do not reccomend changing these test folder directories as they are hardcoded in the docker-compose file for convienence.
 
 To run the program simply type `docker-compose run service` and let docker handle all the trouble for you.
+
+## Development .env
+These variables can be used in development:
+* `NODE_ENV=development` - Either `development` or `production`.
+* `DO_SPACE_KEY=<your_bucket_key>` - Your private space key, starting with 'DO' followed by 18 alphanumeric characters
+* `DO_SPACE_SECRET=<your_bucket_secret>` - Your digital ocean secert key
