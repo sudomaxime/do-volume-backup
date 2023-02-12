@@ -1,0 +1,5 @@
+# Global
+.env
+/test_download
+/test_upload
+/service/node_modules

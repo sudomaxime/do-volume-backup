@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  service:
+    # command: /node/node_modules/.bin/nodemon
+    environment: 
+      NODE_ENV: ${NODE_ENV}
+      # treat these as secret in production
+      DO_SPACE_KEY: ${DO_SPACE_KEY}
+      DO_SPACE_SECRET: ${DO_SPACE_SECRET}
+    build:
+      context: ./service
+      dockerfile: Dockerfile
+      target: dev
+    volumes:
+      - ./service:/node/app
+      - /node/app/node_modules
+      - ./test_upload:/push
+      - ./test_download:/pull:rw
+    ports:
+      - "9229:9229"

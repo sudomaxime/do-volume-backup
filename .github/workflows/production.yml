@@ -1,0 +1,32 @@
+name: Build and deploy to production
+
+# Only trigger, when the build workflow succeeded
+on:
+  release:
+    types: 
+      - created
+
+jobs:
+  # BUILD WORDPRESS STEP -------------------------------------------------------
+  build_worker:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DOCKER_USER: ${{ github.actor }}
+    steps:
+    # Pull the repository to build machine
+    - uses: actions/checkout@v1
+    
+    # Login to docker for private images
+    - name: Login to docker
+      run: |
+        docker login docker.pkg.github.com -u $DOCKER_USER --password $DOCKER_TOKEN
+    
+    # Use docker to build a production candidate
+    - name: Build production image
+      run: |
+        docker build ./service -t docker.pkg.github.com/${{ github.repository }}/backup-tool:latest
+    # Publish the docker image to private github repository with latest tag
+    - name: Publish production image
+      run: |
+        docker push docker.pkg.github.com/${{ github.repository }}/backup-tool:latest
