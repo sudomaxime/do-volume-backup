@@ -25,8 +25,8 @@ jobs:
     # Use docker to build a production candidate
     - name: Build production image
       run: |
-        docker build ./service -t docker.pkg.github.com/sudomaxime/do-volume-backup:latest
+        docker build ./service -t docker.pkg.github.com/sudomaxime/do-volume-backup/volume-backup:latest
     # Publish the docker image to private github repository with latest tag
     - name: Publish production image
       run: |
-        docker push docker.pkg.github.com/sudomaxime/do-volume-backup:latest
+        docker push docker.pkg.github.com/sudomaxime/do-volume-backup/volume-backup:latest
